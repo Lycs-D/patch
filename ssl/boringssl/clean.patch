@@ -1,17 +1,17 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 9309671aee6f2853c3d6bd8748149278c85c179e Mon Sep 17 00:00:00 2001
 From: Lycs-D <139197676+Lycs-D@users.noreply.github.com>
-Date: Sat, 6 Apr 2024 17:56:16 +0800
-Subject: delete tests
+Date: Mon, 13 May 2024 06:45:37 +0800
+Subject: [PATCH] clean cmake
 
 ---
- CMakeLists.txt | 143 ++-----------------------------------------------
- 1 file changed, 3 insertions(+), 140 deletions(-)
+ CMakeLists.txt | 143 +------------------------------------------------
+ 1 file changed, 2 insertions(+), 141 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 39352d6..ea7f639 100644
+index 39352d684..47f2893d1 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -452,42 +452,12 @@ if(USE_CUSTOM_LIBCXX)
+@@ -452,34 +452,6 @@ if(USE_CUSTOM_LIBCXX)
    target_link_libraries(libcxx libcxxabi)
  endif()
  
@@ -46,18 +46,13 @@ index 39352d6..ea7f639 100644
  if(OPENSSL_ASM)
    set(CRYPTO_SOURCES_ASM_USED ${CRYPTO_SOURCES_ASM})
    set(BCM_SOURCES_ASM_USED ${BCM_SOURCES_ASM})
--  set(TEST_SUPPORT_SOURCES_ASM_USED ${TEST_SUPPORT_SOURCES_ASM})
- elseif(OPENSSL_NASM)
-   set(CRYPTO_SOURCES_ASM_USED ${CRYPTO_SOURCES_NASM})
-   set(BCM_SOURCES_ASM_USED ${BCM_SOURCES_NASM})
--  set(TEST_SUPPORT_SOURCES_ASM_USED ${TEST_SUPPORT_SOURCES_NASM})
- endif()
+@@ -611,69 +583,11 @@ add_library(ssl ${SSL_SOURCES})
+ set_property(TARGET ssl PROPERTY EXPORT_NAME SSL)
+ target_link_libraries(ssl crypto)
  
- if(FIPS_DELOCATE AND FIPS_SHARED)
-@@ -614,66 +584,12 @@ target_link_libraries(ssl crypto)
- add_library(decrepit ${DECREPIT_SOURCES})
- target_link_libraries(decrepit crypto ssl)
- 
+-add_library(decrepit ${DECREPIT_SOURCES})
+-target_link_libraries(decrepit crypto ssl)
+-
 -add_library(test_support_lib STATIC
 -            ${TEST_SUPPORT_SOURCES} ${TEST_SUPPORT_SOURCES_ASM_USED})
 -if(LIBUNWIND_FOUND)
@@ -120,11 +115,10 @@ index 39352d6..ea7f639 100644
 -copy_post_build(tool bssl)
 +copy_post_build(crypto crypto)
 +copy_post_build(ssl ssl)
-+copy_post_build(decrepit decrepit)
  
  if(FUZZ)
    if(LIBFUZZER_FROM_DEPS)
-@@ -700,58 +616,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+@@ -700,58 +614,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
    set(HANDSHAKER_ARGS "-handshaker-path" $<TARGET_FILE:handshaker>)
  endif()
  
@@ -183,7 +177,7 @@ index 39352d6..ea7f639 100644
  if(INSTALL_ENABLED)
    # CMake versions before 3.14 do not have default destination values. Executable
    # and library targets that use a default destination should include this
-@@ -765,7 +629,6 @@ if(INSTALL_ENABLED)
+@@ -765,7 +627,6 @@ if(INSTALL_ENABLED)
  
    install(TARGETS crypto ssl
            EXPORT OpenSSLTargets ${INSTALL_DESTINATION_DEFAULT})
@@ -192,5 +186,5 @@ index 39352d6..ea7f639 100644
    install(EXPORT OpenSSLTargets
            FILE OpenSSLTargets.cmake
 -- 
-2.44.0
+2.45.0.vfs.0.0
 
