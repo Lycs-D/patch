@@ -4,14 +4,29 @@ Date: Tue, 28 May 2024 13:54:33 +0800
 Subject: clean
 
 ---
- CMakeLists.txt | 56 +++-----------------------------------------------
- 1 file changed, 3 insertions(+), 53 deletions(-)
+ CMakeLists.txt | 64 +++-----------------------------------------------
+ 1 file changed, 3 insertions(+), 61 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 39352d684..ec3e7d397 100644
+index 39352d684..feb8c5586 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -614,65 +614,15 @@ target_link_libraries(ssl crypto)
+@@ -472,14 +472,6 @@ target_include_directories(
+     third_party/googletest/googletest
+ )
+ 
+-# Declare a dummy target to build all unit tests. Test targets should inject
+-# themselves as dependencies next to the target definition.
+-add_custom_target(all_tests)
+-
+-add_subdirectory(ssl/test)
+-add_subdirectory(util/fipstools)
+-add_subdirectory(util/fipstools/acvp/modulewrapper)
+-
+ if(OPENSSL_ASM)
+   set(CRYPTO_SOURCES_ASM_USED ${CRYPTO_SOURCES_ASM})
+   set(BCM_SOURCES_ASM_USED ${BCM_SOURCES_ASM})
+@@ -614,65 +606,15 @@ target_link_libraries(ssl crypto)
  add_library(decrepit ${DECREPIT_SOURCES})
  target_link_libraries(decrepit crypto ssl)
  
